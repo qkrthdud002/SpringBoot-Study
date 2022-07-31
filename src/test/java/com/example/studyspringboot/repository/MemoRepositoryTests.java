@@ -19,9 +19,11 @@ public class MemoRepositoryTests {
     @Test
     public void testInsertDummies() {
         IntStream.rangeClosed(1, 100). forEach(i -> {
-            Memo memo = Memo.builder().memoText("Sample..." + i).build();
+            Memo memo = Memo
+                    .builder()
+                    .memoText("Sample..." + i)
+                    .build();
             memoRepository.save(memo);
         });
     }
-
 }
