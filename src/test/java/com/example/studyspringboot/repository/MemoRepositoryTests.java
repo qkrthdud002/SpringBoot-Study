@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -106,8 +108,47 @@ public class MemoRepositoryTests {
         System.out.println("first page? : " + result.isFirst()); // 시작 페이지(0) 여부
 
         System.out.println("--------------------------------------------");
-        for(Memo memo : result.getContent()) {
+        for (Memo memo : result.getContent()) {
             System.out.println(memo);
         }
     }
+
+    // 정렬 조건 추가하기
+    @Test
+    public void testSort() {
+        Sort sort1 = Sort.by("mno").descending();
+        Pageable pageable = PageRequest.of(0, 10, sort1);
+
+        Page<Memo> result = memoRepository.findAll(pageable);
+
+        result.get().forEach(memo -> {
+            System.out.println(memo);
+        });
+
+        // Memo 클래스의 memoText는 asc로하고, mno는 desc로 지정하고 싶을 때
+//        Sort sort2 = Sort.by("nmo").descending();
+//        Sort sort3 = Sort.by("memoText").ascending();
+//        Sort sortAll = sort2.and(sort3); // and를 이용한 연결
+//
+//        Pageable pageable1 = PageRequest.of(0, 10, sortAll); // 결합된 정렬 조건 사용
+    }
+
+    @Test
+    public void testQueryMethods() {
+        List<Memo> list = memoRepository.findByMnoBetweenOrderByMnoDesc(70L, 80L);
+
+        for(Memo memo : list) {
+            System.out.println(memo);
+        }
+    }
+
+    @Test
+    public void testQueryMethodWithPageable() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending());
+
+        Page<Memo> result = memoRepository.findByMnoBetween(10L, 50L, (java.awt.print.Pageable) pageable);
+
+        result.get().forEach(memo -> System.out.println(memo));
+    }
+
 }
