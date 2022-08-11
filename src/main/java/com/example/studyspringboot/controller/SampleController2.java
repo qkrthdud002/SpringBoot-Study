@@ -35,6 +35,6 @@ public class SampleController2 {
         }).collect(Collectors.toList());
 
         model.addAttribute("list", list);
-    }
+    } // 웹브라우저 화면에 나타나지 않음.
 
 }
