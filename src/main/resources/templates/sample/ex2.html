@@ -11,11 +11,16 @@
             [[${state.index}]] --- [[${dto}]]
         </li>
 
-        <!-- 제어문 처리 -->
+        <!-- 제어문 처리1 -->
         <li th:each="dto, state : ${list}" th:if="${dto.sno % 5 == 0}">
             [[${dto}]]
         </li>
 
+        <!-- 제어문 처리2 -->
+        <li th:each="dto, state : ${list}">
+            <span th:if="${dto.sno % 5 == 0}" th:text="${'----------------------' + dto.sno}"></span>
+            <span th:unless="${dto.sno % 5 == 0}" th:text="${dto.first}"></span>
+        </li>
     </ul>
 </body>
 </html>
