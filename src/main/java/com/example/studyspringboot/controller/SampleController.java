@@ -8,6 +8,6 @@ public class SampleController {
 
     @GetMapping("/hello")
     public String[] hello() {
-        return new String[] {"Hello", "World"};
+        return new String[]{"Hello", "World"};
     }
 }

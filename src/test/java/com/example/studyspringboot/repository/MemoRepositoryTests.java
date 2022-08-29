@@ -29,7 +29,7 @@ public class MemoRepositoryTests {
     // 등록 작업 테스트
     @Test
     public void testInsertDummies() {
-        IntStream.rangeClosed(1, 100). forEach(i -> {
+        IntStream.rangeClosed(1, 100).forEach(i -> {
             Memo memo = Memo
                     .builder()
                     .memoText("Sample..." + i)
@@ -49,7 +49,7 @@ public class MemoRepositoryTests {
 
         System.out.println("=================================="); // 나중에 출력됨.
 
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             Memo memo = result.get();
             System.out.println(memo);
         }
@@ -138,7 +138,7 @@ public class MemoRepositoryTests {
     public void testQueryMethods() {
         List<Memo> list = memoRepository.findByMnoBetweenOrderByMnoDesc(70L, 80L);
 
-        for(Memo memo : list) {
+        for (Memo memo : list) {
             System.out.println(memo);
         }
     }
